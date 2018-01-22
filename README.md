@@ -1,4 +1,4 @@
-# Simple Dapp Inbox
+# Simple Dapp Contest
 
 > A simple dapp with testing that demonstrates how you can avoid a framework to deploy a solidity contract via JavaScript.
 
