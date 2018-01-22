@@ -72,4 +72,15 @@ describe('Contest contract', () => {
       assert(err);
     }
   });
+
+  it('only manager can pick a winner', async () => {
+    try {
+      await contest.methods.pickWinner().send({
+        from: accounts[1]
+      });
+      assert(false);
+    } catch (err){ 
+      assert(err);
+    }
+  });
 });
