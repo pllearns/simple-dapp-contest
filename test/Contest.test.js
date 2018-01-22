@@ -21,7 +21,41 @@ describe('Contest contract', () => {
     assert.ok(contest.options.address);
   });
 
-  it('lets player enter the contest', () => {
+  it('lets one player enter the contest', async () => {
+    await contest.methods.enter().send({
+      from: accounts[0],
+      value: web3.utils.toWei('0.02', 'ether')
+    });
 
+    const players = await contest.methods.getPlayers().call({
+      from: accounts[0]
+    });
+
+    assert.equal(accounts[0], players[0]);
+    assert.equal(1, players.length);
+  });
+
+  it('lets multiple players enter the contest', async () => {
+    await contest.methods.enter().send({
+      from: accounts[0],
+      value: web3.utils.toWei('0.02', 'ether')
+    });
+    await contest.methods.enter().send({
+      from: accounts[1],
+      value: web3.utils.toWei('0.02', 'ether')
+    });
+    await contest.methods.enter().send({
+      from: accounts[2],
+      value: web3.utils.toWei('0.02', 'ether')
+    });
+
+    const players = await contest.methods.getPlayers().call({
+      from: accounts[0]
+    });
+
+    assert.equal(accounts[0], players[0]);
+    assert.equal(accounts[1], players[1]);
+    assert.equal(accounts[2], players[2]);
+    assert.equal(3, players.length);
   });
 });
